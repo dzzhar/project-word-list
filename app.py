@@ -15,6 +15,10 @@ MONGODB_URI = os.environ.get("MONGODB_URI")
 DB_NAME = os.environ.get("DB_NAME")
 API_KEY = os.environ.get("API_KEY")
 
+# print(MONGODB_URI)
+# print(DB_NAME)
+# print(API_KEY)
+
 client = MongoClient(MONGODB_URI)
 db = client[DB_NAME]
 
