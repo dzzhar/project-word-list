@@ -49,43 +49,6 @@
       integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
       crossorigin="anonymous"
     ></script>
-
-    <!-- Javascript -->
-    <script>
-      // mengkonversi data words menjadi format json
-      let words_data = {{ words | tojson}}
-      let word_list = [];
-
-      for (let i = 0; i < words_data.length; i++) {
-        // menambahkan word tiap elemen kedalam word_list
-        word_list.push(words_data[i].word);
-      }
-
-      function find_word() {
-        /**
-         * val(): mengambil value dari input ber id input-word
-         * toLowerCase(): mengubah value menjadi lowercase
-         * trim(): menghapus spasi yang ada pada value
-         **/
-        let input_word = $("#input-word").val().toLowerCase().trim();
-
-        if (!input_word) {
-          alert("Please type a word");
-          return;
-        }
-
-        // jika word ada di dalam word_list
-        if (word_list.includes(input_word)) {
-          let word_row = $(`#word-${input_word}`);
-
-          word_row.addClass("highlight");
-          word_row.siblings().removeClass("highlight");
-          word_row[0].scrollIntoView();
-        } else {
-          window.location.href = `/detail/${input_word}?status_give=new`;
-        }
-      }
-    </script>
   </head>
 
   <body class="d-flex flex-column min-vh-100 wrap">
@@ -93,42 +56,27 @@
     <div class="pb-5">
       <div class="banner shadow" onclick="window.location.href='/'"></div>
 
-      <div class="search-box d-flex justify-content-center gap-1">
-        <input
-          type="text"
-          id="input-word"
-          class="form-control bg-input"
-          placeholder="Search word definitions"
-        />
-        <button class="btn btn-light" onclick="find_word()">
-          <i class="fa-solid fa-magnifying-glass"></i>
-        </button>
-      </div>
+      <div class="box-container border border-secondary">
+        <h2 class="fw-bolder">
+          {{ msg }} <i class="fa-regular fa-face-frown fa-sm"></i>
+        </h2>
 
-      <table class="table">
-        <thead class="thead-light">
-          <tr class="table-secondary border-bottom border-secondary">
-            <th scope="col" style="width: 30%">WORD</th>
-            <th scope="col">MEANING</th>
-          </tr>
-        </thead>
+        {% if suggestions %}
+        <hr />
+        <h5 class="text-body-secondary pb-1">Here are some suggestions:</h5>
 
-        <tbody id="tbody-box">
-          {% for word_obj in words %}
-            {% set definition = word_obj.definition %}
-            {% set word = word_obj.word %}
-
-          <tr id="word-{{word}}">
-            <td>
-              <a href="/detail/{{word}}?status_give=old" class="text-capitalize"
-                >{{ word }}</a
-              >
-            </td>
-            <td>{{ definition }}</td>
-          </tr>
+        <div class="d-flex flex-row flex-wrap gap-2">
+          {% for suggestion in suggestions %}
+          <button
+            class="btn btn-sparta btn-md text-capitalize"
+            onclick="window.location.href = '/detail/{{suggestion}}'"
+          >
+            {{suggestion}}
+          </button>
           {% endfor %}
-        </tbody>
-      </table>
+        </div>
+        {% endif %}
+      </div>
     </div>
 
     <!-- footer section -->
@@ -138,7 +86,7 @@
           class="nav justify-content-center border-bottom border-secondary-subtle mb-3"
         >
           <li class="nav-item">
-            <a href="/detail/example" class="nav-link mb-2">Detail Page</a>
+            <a href="/" class="nav-link mb-2">Home Page</a>
           </li>
         </ul>
         <p class="text-center m-0">© Zharifah Dzikra 2024</p>

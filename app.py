@@ -50,13 +50,8 @@ def main():
 
     msg = request.args.get("msg")
 
-    # meminta suggestions dalam format list
-    suggestions = request.args.getlist("suggestions")
-
     # merender words untuk ditampilkan di template
-    return render_template(
-        "index.html", words=word_list, msg=msg, suggestions=suggestions
-    )
+    return render_template("index.html", words=word_list, msg=msg)
 
 
 # endpoint detail page yang menerima parameter
@@ -72,7 +67,9 @@ def detail(keyword):
     - diarahkan ke main ('/') dengan membawa msg
     """
     if not definition_data:
-        return redirect(url_for("main", msg=f'The word "{keyword}" could not be found'))
+        return redirect(
+            url_for("error", msg=f'The word "{keyword}" could not be found')
+        )
 
     """
     - jika elemen pertama definitions adalah string
@@ -82,7 +79,7 @@ def detail(keyword):
     if type(definition_data[0]) is str:
         return redirect(
             url_for(
-                "main",
+                "error",
                 msg=f'The word "{keyword}" could not be found',
                 suggestions=definition_data,
             )
@@ -182,6 +179,15 @@ def delete_ex():
             "msg": f"Your example sentence for word '{word}', was deleted!",
         }
     )
+
+
+# endpoint untuk menampilkan error
+@app.route("/error")
+def error():
+    msg = request.args.get("msg")
+    suggestions = request.args.getlist("suggestions")
+
+    return render_template("error.html", msg=msg, suggestions=suggestions)
 
 
 # jalankan web
