@@ -70,7 +70,14 @@
         let input_word = $("#input-word").val().toLowerCase().trim();
 
         if (!input_word) {
-          alert("Please type a word");
+          Swal.fire({
+            title: "Error",
+            text: "Please type a word",
+            icon: "error",
+            customClass: {
+              confirmButton: "btn-sparta",
+            },
+          });
           return;
         }
 
@@ -143,5 +150,8 @@
       integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
       crossorigin="anonymous"
     ></script>
+
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   </body>
 </html>

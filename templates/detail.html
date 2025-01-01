@@ -98,10 +98,25 @@
           success: function (response) {
             // jika sukses set status_give ke old
             if (response.result === "success") {
-              alert(response.msg);
-              window.location.href = `/detail/${current_word}?status_give=old`;
-            } else {
-              alert("Something went wrong:(");
+              Swal.fire({
+                title: "Success",
+                text: response.msg,
+                icon: "success",
+                customClass: {
+                  confirmButton: "btn-sparta",
+                },
+              }).then(() => {
+                setTimeout(() => {
+                  window.location.href = `/detail/${current_word}?status_give=old`;
+                });
+              });
+            }
+            else {
+              Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Something went wrong!",
+              });
             }
           },
         });
@@ -118,10 +133,25 @@
           success: function (response) {
             // jika sukses set status_give ke new
             if (response.result === "success") {
-              alert(response.msg);
-              window.location.href = `/detail/${current_word}?status_give=new`;
-            } else {
-              alert("Something when wrong:(");
+              Swal.fire({
+                title: "Success",
+                text: response.msg,
+                icon: "success",
+                customClass: {
+                  confirmButton: "btn-sparta",
+                },
+              }).then(() => {
+                setTimeout(() => {
+                  window.location.href = `/detail/${current_word}?status_give=new`;
+                });
+              });
+            } 
+            else {
+              Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Something went wrong!",
+              });
             }
           },
         });
@@ -178,9 +208,19 @@
             // console.log(response);
 
             if (response.result) {
-              alert(response.msg);
-              get_examples();
-              $("#new-example").val("");
+              Swal.fire({
+                title: "Success",
+                text: response.msg,
+                icon: "success",
+                customClass: {
+                  confirmButton: "btn-sparta",
+                },
+              }).then(() => {
+                setTimeout(() => {
+                  get_examples();
+                  $("#new-example").val("");
+                });
+              });
             }
           },
         });
@@ -201,8 +241,18 @@
             // console.log(response);
 
             if (response.result === "success") {
-              alert(response.msg);
-              get_examples();
+              Swal.fire({
+                title: "Success",
+                text: response.msg,
+                icon: "success",
+                customClass: {
+                  confirmButton: "btn-sparta",
+                },
+              }).then(() => {
+                setTimeout(() => {
+                  get_examples();
+                });
+              });
             }
           },
         });
@@ -302,5 +352,8 @@
       integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
       crossorigin="anonymous"
     ></script>
+
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   </body>
 </html>
