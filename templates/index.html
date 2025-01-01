@@ -114,9 +114,8 @@
         </thead>
 
         <tbody id="tbody-box">
-          {% for word_obj in words %}
-            {% set definition = word_obj.definition %}
-            {% set word = word_obj.word %}
+          {% for word_obj in words %} {% set definition = word_obj.definition %}
+          {% set word = word_obj.word %}
 
           <tr id="word-{{word}}">
             <td>
@@ -134,13 +133,6 @@
     <!-- footer section -->
     <div class="container-fluid bg-white shadow-lg mt-auto">
       <footer class="py-3 py-md-4">
-        <ul
-          class="nav justify-content-center border-bottom border-secondary-subtle mb-3"
-        >
-          <li class="nav-item">
-            <a href="/detail/example" class="nav-link mb-2">Detail Page</a>
-          </li>
-        </ul>
         <p class="text-center m-0">© Zharifah Dzikra 2024</p>
       </footer>
     </div>
